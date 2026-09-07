@@ -32,6 +32,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     # 仅在 fork 仓库且配置了 Cloudflare secrets 时运行
     # 原仓库 push 和未配置 secrets 的 fork 不会触发部署
     if: ${{ github.event.repository.fork }}
@@ -54,7 +56,7 @@ jobs:
         if: steps.check.outputs.skip != 'true'
         uses: actions/setup-node@v5
         with:
-          node-version: '22'
+          node-version: '24'
 
       - name: Install dependencies
         if: steps.check.outputs.skip != 'true'
